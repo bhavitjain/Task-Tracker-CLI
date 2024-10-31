@@ -41,7 +41,7 @@ public class TaskProcessor {
         if (updatePatternMatcher.matches()) {
             int taskId = Integer.parseInt(updatePatternMatcher.group(1));
             String description = updatePatternMatcher.group(2);
-            TaskPerformer.updateTask(taskId, description);
+            TaskPerformer.updateTaskDescription(taskId, description);
         } else {
             System.out.println(Constants.INVALID_COMMAND_FORMAT);
         }
