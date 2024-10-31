@@ -97,9 +97,9 @@ public class TaskProcessor {
             }
 
             if (action.equals(Constants.MARK_IN_PROGRESS))
-                TaskPerformer.changeTaskStatus(taskId, Constants.IN_PROGRESS);
+                TaskPerformer.updateTaskStatus(taskId, Constants.IN_PROGRESS);
             else
-                TaskPerformer.changeTaskStatus(taskId, Constants.DONE);
+                TaskPerformer.updateTaskStatus(taskId, Constants.DONE);
         } else {
             System.out.println(Constants.INVALID_COMMAND_FORMAT);
         }
