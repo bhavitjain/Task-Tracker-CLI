@@ -12,7 +12,11 @@ public class TaskPerformer {
     }
 
 
-    // Method to check and create a new JSON file if it doesn't exist
+    /**
+     * Method to check and create a new JSON file if it doesn't exist
+     *
+     * @throws IOException IOException
+     */
     private static void checkAndCreateFile() throws IOException {
         File file = new File(Constants.FILE_NAME);
         if (!file.exists()) {
@@ -23,7 +27,12 @@ public class TaskPerformer {
         }
     }
 
-    // Method to read tasks from the JSON file
+    /**
+     * Method to read tasks from the JSON file
+     *
+     * @return list of tasks
+     * @throws IOException IOException
+     */
     private static List<Task> readTasksFromFile() throws IOException {
         List<Task> tasks = new ArrayList<>();
         checkAndCreateFile();
@@ -41,7 +50,12 @@ public class TaskPerformer {
         return tasks;
     }
 
-    // Helper method to parse a task from JSON string
+    /**
+     * Helper method to parse a task from JSON string
+     *
+     * @param jsonString jsonString
+     * @return {@link Task}
+     */
     private static Task parseTask(String jsonString) {
         jsonString = jsonString.replaceAll("[{}\"]", ""); // Remove JSON characters
         String[] fields = jsonString.split(",");
@@ -53,7 +67,12 @@ public class TaskPerformer {
         return new Task(id, description, status, createdAt, updateAt);
     }
 
-    // Method to write tasks to the JSON file
+    /**
+     * Method to write tasks to the JSON file
+     *
+     * @param tasks task list
+     * @throws IOException IOException
+     */
     private static void writeTasksToFile(List<Task> tasks) throws IOException {
         checkAndCreateFile();
 
@@ -68,11 +87,14 @@ public class TaskPerformer {
     }
 
     private static int getNextId(List<Task> tasks) {
-        return tasks.stream().mapToInt(Task::getId)
-                .max()
-                .orElse(0) + 1;
+        return tasks.stream().mapToInt(Task::getId).max().orElse(0) + 1;
     }
 
+    /**
+     * Adds new task in json and prints its id
+     *
+     * @param description description
+     */
     public static void addTask(String description) {
         try {
             List<Task> tasks = readTasksFromFile();
@@ -98,6 +120,12 @@ public class TaskPerformer {
         return null;
     }
 
+    /**
+     * updates the task description of a task with the given task ID.
+     *
+     * @param taskId task id
+     * @param description description
+     */
     public static void updateTaskDescription(int taskId, String description) {
         try {
             List<Task> tasks = readTasksFromFile();
@@ -115,6 +143,11 @@ public class TaskPerformer {
         }
     }
 
+    /**
+     * deletes task for a given id
+     *
+     * @param taskId task id
+     */
     public static void deleteTask(int taskId) {
         try {
             List<Task> tasks = readTasksFromFile();
@@ -125,6 +158,12 @@ public class TaskPerformer {
         }
     }
 
+    /**
+     * Updates the status of a task with the given task ID.
+     *
+     * @param taskId task id
+     * @param status status
+     */
     public static void updateTaskStatus(int taskId, String status) {
         try {
             List<Task> tasks = readTasksFromFile();
@@ -142,6 +181,9 @@ public class TaskPerformer {
         }
     }
 
+    /**
+     * list all task from json file
+     */
     public static void listAllTasks() {
         try {
             List<Task> tasks = readTasksFromFile();
@@ -151,6 +193,11 @@ public class TaskPerformer {
         }
     }
 
+    /**
+     * lists all task with the given status.
+     *
+     * @param status status
+     */
     public static void listTaskByStatus(String status) {
         try {
             List<Task> tasks = readTasksFromFile();
