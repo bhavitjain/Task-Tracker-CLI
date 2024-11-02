@@ -123,7 +123,7 @@ public class TaskPerformer {
     /**
      * updates the task description of a task with the given task ID.
      *
-     * @param taskId task id
+     * @param taskId      task id
      * @param description description
      */
     public static void updateTaskDescription(int taskId, String description) {
@@ -137,6 +137,7 @@ public class TaskPerformer {
                 tasks.get(index).setDescription(description);
                 tasks.get(index).setUpdatedAt(LocalDateTime.now().toString());
                 writeTasksToFile(tasks);
+                System.out.printf(Constants.UPDATED_TASK_DESCRIPTION_SUCCESSFULLY, description, taskId);
             }
         } catch (IOException e) {
             System.out.println(Constants.IO_EXCEPTION_OCCURRED);
@@ -151,8 +152,15 @@ public class TaskPerformer {
     public static void deleteTask(int taskId) {
         try {
             List<Task> tasks = readTasksFromFile();
-            List<Task> updatedTasks = tasks.stream().filter(task -> task.getId() != taskId).toList();
-            writeTasksToFile(updatedTasks);
+            Integer index = getIndex(tasks, taskId);
+
+            if (index == null) {
+                System.out.printf(Constants.INVALID_TASK_ID, taskId);
+            } else {
+                tasks.remove(index.intValue());
+                writeTasksToFile(tasks);
+                System.out.printf(Constants.DELETED_TASK_SUCCESSFULLY, taskId);
+            }
         } catch (IOException e) {
             System.out.println(Constants.IO_EXCEPTION_OCCURRED);
         }
@@ -175,6 +183,7 @@ public class TaskPerformer {
                 tasks.get(index).setStatus(status);
                 tasks.get(index).setUpdatedAt(LocalDateTime.now().toString());
                 writeTasksToFile(tasks);
+                System.out.printf(Constants.UPDATED_TASK_STATUS_SUCCESSFULLY, status, taskId);
             }
         } catch (IOException e) {
             System.out.println(Constants.IO_EXCEPTION_OCCURRED);
@@ -186,6 +195,7 @@ public class TaskPerformer {
      */
     public static void listAllTasks() {
         try {
+            System.out.println(Constants.LISTING_ALL_TASKS);
             List<Task> tasks = readTasksFromFile();
             tasks.forEach(System.out::println);
         } catch (IOException e) {
@@ -200,6 +210,7 @@ public class TaskPerformer {
      */
     public static void listTaskByStatus(String status) {
         try {
+            System.out.printf(Constants.LISTING_TASKS_BY_STATUS, status);
             List<Task> tasks = readTasksFromFile();
             tasks.stream().filter(task -> Objects.equals(task.getStatus(), status)).forEach(System.out::println);
         } catch (IOException e) {
