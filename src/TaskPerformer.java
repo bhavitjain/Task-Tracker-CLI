@@ -1,6 +1,10 @@
 package src;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,8 +61,11 @@ public class TaskPerformer {
      * @return {@link Task}
      */
     private static Task parseTask(String jsonString) {
-        jsonString = jsonString.replaceAll("[{}\"]", ""); // Remove JSON characters
-        String[] fields = jsonString.split(",");
+        jsonString = jsonString.replaceAll("[{}]", ""); // Remove JSON characters
+        String[] fields = jsonString.split(", \"");
+        for (int i = 0; i < fields.length; i++)
+            fields[i] = fields[i].replaceAll("\"", "");
+
         int id = Integer.parseInt(fields[0].split(": ")[1]);
         String description = fields[1].split(": ")[1];
         String status = fields[2].split(": ")[1];
