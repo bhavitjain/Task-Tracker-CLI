@@ -69,9 +69,10 @@ public class TaskProcessor {
         } else if (args.length == 2) {
             if (!Constants.STATUS_LIST.contains(args[1])) {
                 System.out.printf(INVALID_ARGUMENT, args[1]);
-            } else {
-                TaskPerformer.listTaskByStatus(args[1]);
+                return;
             }
+
+            TaskPerformer.listTaskByStatus(args[1]);
         } else {
             System.out.println(INVALID_COMMAND_FORMAT);
         }
@@ -93,10 +94,12 @@ public class TaskProcessor {
                     return;
                 }
 
-                if (action.equals(Constants.MARK_IN_PROGRESS))
+                if (action.equals(Constants.MARK_IN_PROGRESS)) {
                     TaskPerformer.updateTaskStatus(taskId, Constants.IN_PROGRESS);
-                else
-                    TaskPerformer.updateTaskStatus(taskId, Constants.DONE);
+                    return;
+                }
+
+                TaskPerformer.updateTaskStatus(taskId, Constants.DONE);
             } else {
                 System.out.println(INVALID_COMMAND_FORMAT);
             }
