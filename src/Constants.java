@@ -3,6 +3,10 @@ package src;
 import java.util.*;
 
 public class Constants {
+    private Constants() {
+
+    }
+
     public static final String ADD = "add";
     public static final String UPDATE = "update";
     public static final String DELETE = "delete";
@@ -12,8 +16,6 @@ public class Constants {
     public static final String TODO = "todo";
     public static final String IN_PROGRESS = "in-progress";
     public static final String DONE = "done";
-    public static final String TASK_CLI = "task-cli ";
-    public static final String EXIT = "exit";
 
     public static final String INVALID_COMMAND_FORMAT = "Invalid command format.";
     public static final String INVALID_ARGUMENT = "%s is not a valid argument%n";
@@ -26,6 +28,7 @@ public class Constants {
     public static final String LISTING_TASKS_BY_STATUS = "Listing all tasks with status: \"%s\"%n";
     public static final String LISTING_ALL_TASKS = "Listing all tasks";
 
+    public static final List<String> TASK_LIST = List.of(ADD, UPDATE, DELETE, LIST, MARK_IN_PROGRESS, MARK_DONE);
     public static final List<String> ACTIONS_LIST = List.of(MARK_IN_PROGRESS, MARK_DONE);
     public static final List<String> STATUS_LIST = List.of(TODO, IN_PROGRESS, DONE);
 
